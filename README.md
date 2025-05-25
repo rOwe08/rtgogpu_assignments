@@ -1,5 +1,5 @@
 # gl_tutorials
-Short demos and tutorials for OpenGL and other graphic libraries.
+Solutions for semestral project assignments: Screen Space Ambient Occlussion and Particle system.
 
 ## Dependencies
 
