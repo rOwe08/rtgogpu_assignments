@@ -1,0 +1,72 @@
+# Build directories
+build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Visual Studio files
+*.sln
+*.vcxproj*
+*.user
+*.filters
+*.pdb
+*.ilk
+*.log
+*.tlog
+*.obj
+*.lib
+*.exp
+*.idb
+*.ipch
+*.aps
+*.ncb
+*.sdf
+*.opensdf
+*.cachefile
+*.db
+*.VC.db
+*.VC.opendb
+/.vs/
+
+# Executables
+*.exe
+*.dll
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+*.elf
+
+# IDE folders
+.vscode/
+
+# MacOS
+.DS_Store
+
+# External dependencies (if not modified)
+glm-1.0.1/
+glfw-3.4/
+glm-1.0.1/build/
+glfw-3.4/build/
+
+# Ignore generated documentation (if any)
+doc/*.html
+doc/*.pdf
+
+# Ignore user data (optional, comment out if you want to keep data/ in git)
+# data/
+
+# Ignore backup and temporary files
+*~
+*.swp
+*.tmp
+*.bak
+
+# Ignore Python cache (for doc scripts)
+__pycache__/
+*.pyc 

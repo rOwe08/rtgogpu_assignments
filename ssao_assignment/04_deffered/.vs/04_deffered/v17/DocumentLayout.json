@@ -1,0 +1,120 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\compositing.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|solutionrelative:shaders\\compositing.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\passthrough.vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|solutionrelative:shaders\\passthrough.vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao_blur.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|solutionrelative:shaders\\ssao_blur.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|Solution Items{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}|solutionrelative:shaders\\ssao.fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4EC8529-C028-3314-82AB-FB1FB2E25440}|04_deffered.vcxproj|D:\\School\\GitHub\\gl_tutorials\\04_deffered\\renderer.hpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E4EC8529-C028-3314-82AB-FB1FB2E25440}|04_deffered.vcxproj|D:\\School\\GitHub\\gl_tutorials\\04_deffered\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "main.cpp",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\04_deffered\\main.cpp",
+              "RelativeDocumentMoniker": "..\\..\\04_deffered\\main.cpp",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\04_deffered\\main.cpp",
+              "RelativeToolTip": "..\\..\\04_deffered\\main.cpp",
+              "ViewState": "AgIAADAAAAAAAAAAAAAAwGQAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-05-18T21:53:58.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "renderer.hpp",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\04_deffered\\renderer.hpp",
+              "RelativeDocumentMoniker": "..\\..\\04_deffered\\renderer.hpp",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\04_deffered\\renderer.hpp",
+              "RelativeToolTip": "..\\..\\04_deffered\\renderer.hpp",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAqwJ8AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-05-18T22:02:08.373Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ssao.fragment.glsl",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao.fragment.glsl",
+              "RelativeDocumentMoniker": "shaders\\ssao.fragment.glsl",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao.fragment.glsl",
+              "RelativeToolTip": "shaders\\ssao.fragment.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-19T19:34:07.801Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ssao_blur.fragment.glsl",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao_blur.fragment.glsl",
+              "RelativeDocumentMoniker": "shaders\\ssao_blur.fragment.glsl",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\ssao_blur.fragment.glsl",
+              "RelativeToolTip": "shaders\\ssao_blur.fragment.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-19T19:34:07.337Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "passthrough.vertex.glsl",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\passthrough.vertex.glsl",
+              "RelativeDocumentMoniker": "shaders\\passthrough.vertex.glsl",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\passthrough.vertex.glsl",
+              "RelativeToolTip": "shaders\\passthrough.vertex.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-19T22:15:32.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "compositing.fragment.glsl",
+              "DocumentMoniker": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\compositing.fragment.glsl",
+              "RelativeDocumentMoniker": "shaders\\compositing.fragment.glsl",
+              "ToolTip": "D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders\\compositing.fragment.glsl",
+              "RelativeToolTip": "shaders\\compositing.fragment.glsl",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAUwCUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-19T19:34:01.291Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
