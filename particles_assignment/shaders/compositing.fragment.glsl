@@ -1,17 +1,16 @@
 #version 430 core
 
-uniform sampler2D u_diffuse;
-uniform sampler2D u_normal;
-uniform sampler2D u_position;
-uniform sampler2D u_shadowMap;
-uniform sampler2D u_ssao;
-uniform bool u_useSSAO;  // Add SSAO flag
+layout(binding = 0) uniform sampler2D u_diffuse;
+layout(binding = 1) uniform sampler2D u_normal;
+layout(binding = 2) uniform sampler2D u_position;
+layout(binding = 3) uniform sampler2D u_shadowMap;
+layout(binding = 4) uniform sampler2D u_ssao;
 
 layout(location = 15) uniform vec3 u_lightPos;
 layout(location = 20) uniform mat4 u_lightMat;
 layout(location = 40) uniform mat4 u_lightProjMat;
 
-const vec3 ambientColor = vec3(0.3, 0.3, 0.3);
+const vec3 ambientColor = vec3(0.1, 0.1, 0.1);
 
 in vec2 texCoords;
 
@@ -22,14 +21,14 @@ void main() {
 	vec3 normal = texture(u_normal, texCoords).xyz;
 
 	vec3 diffuseColor = texture(u_diffuse, texCoords).xyz;
-	float ambientOcclusion = u_useSSAO ? texture(u_ssao, texCoords).r : 1.0;  // Use SSAO only if enabled
+	float ambientOcclusion = texture(u_ssao, texCoords).r;
 
 	// Debug visualization of SSAO
-	//fragColor = vec4(vec3(ambientOcclusion), 1.0);
-	//return;
+	// fragColor = vec4(vec3(ambientOcclusion), 1.0);
+	// return;
 
-	// Apply SSAO to ambient lighting with stronger effect
-	vec3 ambient = ambientColor * diffuseColor * ambientOcclusion;
+	// Apply SSAO to ambient lighting
+	vec3 ambient = vec3(0.3 * diffuseColor * ambientOcclusion);
 
 	vec3 lightDir = normalize(u_lightPos - position);
 
@@ -37,7 +36,7 @@ void main() {
 	vec3 diffuse = lamb * diffuseColor;
 
 	// Combine lighting with SSAO
-	fragColor = vec4(diffuse - ambient, 1.0);
+	fragColor = vec4(diffuse + ambient, 1.0);
 
 	vec4 shadowCoords = (u_lightProjMat * u_lightMat * vec4(position, 1.0));
 
@@ -51,6 +50,5 @@ void main() {
 			fragColor = vec4(0.5 * diffuseColor, 1.0);
 		}
 	}
-
-	fragColor = fragColor - vec4(vec3(ambientOcclusion), 1.0);
 }
+

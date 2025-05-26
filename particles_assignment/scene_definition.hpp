@@ -9,7 +9,6 @@
 #include "scene_object.hpp"
 #include "cube.hpp"
 #include "instanced_cube.hpp"
-// #include "instanced_mesh_object.hpp"
 
 #include "material_factory.hpp"
 #include "geometry_factory.hpp"
@@ -39,7 +38,6 @@ inline SimpleScene createCubeScene(MaterialFactory &aMaterialFactory, GeometryFa
 				RenderStyle::Solid,
 				{
 					{ "configuration", static_cast<unsigned int>(DIFFUSE) },
-					// { "configuration", static_cast<unsigned int>(DEBUG) },
 					{ "u_diffuseTexture", TextureInfo("brick_wall/Brick_Wall_012_COLOR.jpg") },
 					{ "u_specularTexture", TextureInfo("brick_wall/Brick_Wall_012_ROUGH.jpg") },
 					{ "u_normalTexture", TextureInfo("brick_wall/Brick_Wall_012_NORM.jpg") },
@@ -136,7 +134,7 @@ inline SimpleScene createInstancedCubesScene(MaterialFactory &aMaterialFactory, 
 inline SimpleScene createMonkeyScene(MaterialFactory &aMaterialFactory, GeometryFactory &aGeometryFactory) {
 	SimpleScene scene;
 	{
-		auto mesh = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/monkey.obj");
+		auto mesh = std::make_shared<LoadedMeshObject>("./data/geometry/monkey.obj");
 		mesh->setScale(glm::vec3(0.5));
 		mesh->setPosition(glm::vec3(-0.7, 0.0f, 0.0f));
 		mesh->setRotation(glm::vec3(0.0f, glm::radians(180.0f), 0.0f));
@@ -171,7 +169,7 @@ inline SimpleScene createMonkeyScene(MaterialFactory &aMaterialFactory, Geometry
 	{
 		int innerFactor = 3;
 		int outerFactor = 3;
-		auto mesh = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/monkey.obj");
+		auto mesh = std::make_shared<LoadedMeshObject>("./data/geometry/monkey.obj");
 		mesh->setScale(glm::vec3(0.5));
 		mesh->setPosition(glm::vec3(0.7, 0.0f, 0.0f));
 		mesh->setRotation(glm::vec3(0.0f, glm::radians(180.0f), 0.0f));
@@ -209,8 +207,8 @@ inline SimpleScene createParticleScene(MaterialFactory& aMaterialFactory, Geomet
 {
 	SimpleScene scene;
 
-	// Add rocket
-	auto rocket = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/rocket.obj");
+	// Adding rocket
+	auto rocket = std::make_shared<LoadedMeshObject>("./data/geometry/rocket.obj");
 	rocket->setName("ROCKET");
 	rocket->setPosition(glm::vec3(0.0f, -0.4f, 0.0f));
 	rocket->setScale(glm::vec3(0.01f));

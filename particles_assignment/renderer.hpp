@@ -39,14 +39,13 @@ public:
 		auto view = aCamera.getViewMatrix();
 
 		std::vector<RenderData> renderData;
-		std::vector<RenderData> transparentData;  // For transparent objects
+		std::vector<RenderData> transparentData;
 
 		for (const auto& object : aScene.getObjects())
 		{
 			auto data = object.getRenderData(aRenderOptions);
 			if (data)
 			{
-				// Split objects into transparent and opaque
 				if (data->mMaterialParams.mMaterialName == "particle") {
 					transparentData.push_back(data.value());
 				} else {
@@ -63,7 +62,6 @@ public:
 		fallbackParameters["u_near"] = aCamera.near();
 		fallbackParameters["u_far"] = aCamera.far();
 
-		// First render opaque objects
 		GL_CHECK(glDisable(GL_BLEND));
 		GL_CHECK(glEnable(GL_DEPTH_TEST));
 		GL_CHECK(glDepthMask(GL_TRUE));
@@ -92,13 +90,11 @@ public:
 			}
 		}
 
-		// Then render transparent objects
 		GL_CHECK(glEnable(GL_BLEND));
 		GL_CHECK(glBlendFunc(GL_SRC_ALPHA, GL_ONE));
 		GL_CHECK(glEnable(GL_DEPTH_TEST));
-		GL_CHECK(glDepthMask(GL_FALSE));  // Don't write to depth buffer
+		GL_CHECK(glDepthMask(GL_FALSE)); 
 
-		// Create index vector for sorting
 		std::vector<size_t> indices(transparentData.size());
 		std::iota(indices.begin(), indices.end(), 0);
 
@@ -109,7 +105,7 @@ public:
 				glm::vec3 posB = glm::vec3(transparentData[b].modelMat[3]);
 				float distA = glm::length(glm::vec3(view * glm::vec4(posA, 1.0f)));
 				float distB = glm::length(glm::vec3(view * glm::vec4(posB, 1.0f)));
-				return distA > distB;  // Sort from far to near
+				return distA > distB;
 			});
 
 		// Render in sorted order
@@ -130,7 +126,6 @@ public:
 			geometry.draw();
 		}
 
-		// Restore default state
 		GL_CHECK(glDisable(GL_BLEND));
 		GL_CHECK(glDepthMask(GL_TRUE));
 	}

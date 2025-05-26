@@ -2,7 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
-#include <glm/gtc/quaternion.hpp> // For glm::quat
+#include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/string_cast.hpp>
 
 #include "material_factory.hpp"
@@ -29,7 +29,7 @@ class SceneObject {
 public:
 	SceneObject()
 		: position(glm::vec3(0.0f)),
-		rotation(glm::quat(glm::vec3(0.0f))), // Initialize with an identity quaternion
+		rotation(glm::quat(glm::vec3(0.0f))), 
 		scale(glm::vec3(1.0f)) {}
 
 	virtual ~SceneObject() {}

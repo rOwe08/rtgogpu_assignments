@@ -14,7 +14,7 @@
 inline SimpleScene createCottageScene(MaterialFactory& aMaterialFactory, GeometryFactory& aGeometryFactory) {
 	SimpleScene scene;
 	{
-		auto cottage = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/cottage.obj");
+		auto cottage = std::make_shared<LoadedMeshObject>("./data/geometry/cottage.obj");
 		cottage->addMaterial(
 			"solid",
 			MaterialParameters(
@@ -29,7 +29,7 @@ inline SimpleScene createCottageScene(MaterialFactory& aMaterialFactory, Geometr
 		scene.addObject(cottage);
 	}
 	{
-		auto ground = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/ground.obj");
+		auto ground = std::make_shared<LoadedMeshObject>("./data/geometry/ground.obj");
 		ground->addMaterial(
 			"solid",
 			MaterialParameters(
@@ -44,7 +44,7 @@ inline SimpleScene createCottageScene(MaterialFactory& aMaterialFactory, Geometr
 		scene.addObject(ground);
 	}
 	{
-		auto oak = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/oak.obj");
+		auto oak = std::make_shared<LoadedMeshObject>("./data/geometry/oak.obj");
 		oak->addMaterial(
 			"solid",
 			MaterialParameters(
@@ -58,28 +58,56 @@ inline SimpleScene createCottageScene(MaterialFactory& aMaterialFactory, Geometr
 		oak->prepareRenderData(aMaterialFactory, aGeometryFactory);
 		scene.addObject(oak);
 	}
-	//{
-	//	// Add rocket
-	//	auto rocket = std::make_shared<LoadedMeshObject>("D:\\School\\GitHub\\gl_tutorials\\build\\data/geometry/rocket.obj");
-	//	rocket->setName("ROCKET");
-	//	rocket->setPosition(glm::vec3(0.0f, -0.4f, 0.0f));
-	//	rocket->setScale(glm::vec3(0.03f));
-	//	rocket->setRotation(glm::vec3(0.0f, 0.0f, 0.0f));
-	//	rocket->addMaterial(
-	//		"solid",
-	//		MaterialParameters(
-	//			"material_deffered",
-	//			RenderStyle::Solid,
-	//			{
-	//				{ "u_diffuseTexture", TextureInfo("rocket/10475_Rocket_Ship_v1_Diffuse.jpg") },
-	//			}
-	//			)
-	//	);
 
-	//	rocket->prepareRenderData(aMaterialFactory, aGeometryFactory);
-	//	scene.addObject(rocket);
-	//}
+	return scene;
+}
 
+inline SimpleScene createMonkeyScene(MaterialFactory& aMaterialFactory, GeometryFactory& aGeometryFactory)
+{
+	SimpleScene scene;
+	{
+		auto mesh = std::make_shared<LoadedMeshObject>("./data/geometry/monkey.obj");
+		mesh->setScale(glm::vec3(3.5));
+		mesh->setPosition(glm::vec3(-0.7, 0.0f, 15.0f));
+		mesh->setRotation(glm::vec3(0.0f, 0.0f, 0.0f));
+		mesh->setName("MONKEY1");
+		mesh->addMaterial(
+			"solid",
+			MaterialParameters(
+				"pn_triangles",
+				RenderStyle::Solid,
+				{
+					{"u_inner", 1 },
+					{"u_outer", 1 },
+					{"u_solidColor", glm::vec4(0,0.5,0.5,1)}
+				},
+				true)
+		);
+		mesh->addMaterial(
+			"wireframe",
+			MaterialParameters(
+				"pn_triangles_solid",
+				RenderStyle::Wireframe,
+				{
+					{"u_inner", 1 },
+					{"u_outer", 1 },
+				},
+				true)
+				);
+		mesh->addMaterial(
+			"solid",
+			MaterialParameters(
+				"material_deffered",
+				RenderStyle::Solid,
+				{
+					{ "u_diffuseTexture", TextureInfo("white_texture.png") },
+				}
+				)
+		);
+		mesh->prepareRenderData(aMaterialFactory, aGeometryFactory);
+
+		scene.addObject(mesh);
+	}
 
 	return scene;
 }

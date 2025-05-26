@@ -22,7 +22,7 @@ void main() {
 	vec3 normal = texture(u_normal, texCoords).xyz;
 
 	vec3 diffuseColor = texture(u_diffuse, texCoords).xyz;
-	float ambientOcclusion = u_useSSAO ? texture(u_ssao, texCoords).r : 1.0;  // Use SSAO only if enabled
+	float ambientOcclusion = u_useSSAO ? texture(u_ssao, texCoords).r : 0.0;  // Use SSAO only if enabled
 
 	// Debug visualization of SSAO
 	//fragColor = vec4(vec3(ambientOcclusion), 1.0);
@@ -55,8 +55,5 @@ void main() {
 	// Apply SSAO only if enabled
 	if (u_useSSAO) {
 		fragColor = fragColor - vec4(vec3(ambientOcclusion), 1.0);
-	} else {
-		// When SSAO is disabled, ensure shadows are darker than ambient
-		fragColor = vec4(diffuseColor * (diffuse - ambient), 1.0);
 	}
 }

@@ -177,7 +177,7 @@ void OGLMaterialFactory::loadShadersFromDir(fs::path aShaderDir) {
 		auto files = shaderFiles[shaderType];
 		std::map<std::string, OpenGLResource> shaders;
 		for (auto &shaderFile : files) {
-			std::cout << "Compiling " << shaderType << " shader: " << shaderFile.second << "\n";
+			//std::cout << "Compiling " << shaderType << " shader: " << shaderFile.second << "\n";
 			auto content = loadShaderSource(shaderFile.second);
 			content = processIncludes(content, includeFiles);
 			auto compiledShader = compileShader(enumValue, content);
@@ -188,7 +188,7 @@ void OGLMaterialFactory::loadShadersFromDir(fs::path aShaderDir) {
 
 	auto &programFiles = shaderFiles["program"];
 	for (auto &programFile : programFiles) {
-		std::cout << "Creating shader program: " << programFile.first << "\n";
+		//std::cout << "Creating shader program: " << programFile.first << "\n";
 		auto shaderNames = parseProgramFile(programFile.second);
 
 		CompiledShaderStages shaderStages;
@@ -205,10 +205,10 @@ void OGLMaterialFactory::loadShadersFromDir(fs::path aShaderDir) {
 		auto program = createShaderProgram(shaderStages);
 		auto uniforms = listShaderUniforms(program);
 		for (auto info : uniforms) {
-			std::cout
-				<< "Uniform name: " << info.name
-				<< " Type: " << getGLTypeName(info.type)
-				<< " Location: " << info.location << "\n";
+			//std::cout
+				//<< "Uniform name: " << info.name
+				//<< " Type: " << getGLTypeName(info.type)
+				//<< " Location: " << info.location << "\n";
 		}
 		mPrograms.emplace(
 				programFile.first,
@@ -219,14 +219,14 @@ void OGLMaterialFactory::loadShadersFromDir(fs::path aShaderDir) {
 	}
 	auto &computeShaders = compiledShaders["compute"];
 	for (auto &shader : computeShaders) {
-		std::cout << "Creating shader program: " << shader.first << "\n";
+		//std::cout << "Creating shader program: " << shader.first << "\n";
 		auto program = createShaderProgram(CompiledShaderStages{ &(shader.second) });
 		auto uniforms = listShaderUniforms(program);
 		for (auto info : uniforms) {
-			std::cout
+			/*std::cout
 				<< "Uniform name: " << info.name
 				<< " Type: " << getGLTypeName(info.type)
-				<< " Location: " << info.location << "\n";
+				<< " Location: " << info.location << "\n";*/
 		}
 		mPrograms.emplace(
 				shader.first,
@@ -242,7 +242,7 @@ std::vector<fs::path> findImageFiles(const fs::path& aTextureDir) {
 	if (!fs::exists(aTextureDir) || !fs::is_directory(aTextureDir)) {
 		throw std::runtime_error("Texture dir path is not a directory or does not exist.");
 	}
-	std::cout << "Loading textures from directory: " << aTextureDir << "\n";
+	//std::cout << "Loading textures from directory: " << aTextureDir << "\n";
 	std::vector<fs::path> imageFiles;
 
 	for (const auto& entry : fs::recursive_directory_iterator(aTextureDir)) {
@@ -309,7 +309,7 @@ void OGLMaterialFactory::loadTexturesFromDir(fs::path aTextureDir) {
 
 			auto name = convertToIdentifier(fs::relative(textureFile, aTextureDir).string());
 			mTextures[name] = std::make_shared<OGLTexture>(std::move(texture));
-			std::cout << "Loaded texture: " << name << " from " << textureFile << "\n";
+			//std::cout << "Loaded texture: " << name << " from " << textureFile << "\n";
 		}
 	}
 }
@@ -318,7 +318,7 @@ std::vector<fs::path> findVolumeDataFiles(const fs::path& aTextureDir) {
 	if (!fs::exists(aTextureDir) || !fs::is_directory(aTextureDir)) {
 		throw std::runtime_error("3D Texture dir path is not a directory or does not exist.");
 	}
-	std::cout << "Loading 3D textures from directory: " << aTextureDir << "\n";
+	//std::cout << "Loading 3D textures from directory: " << aTextureDir << "\n";
 	std::vector<fs::path> imageFiles;
 
 	for (const auto& entry : fs::recursive_directory_iterator(aTextureDir)) {

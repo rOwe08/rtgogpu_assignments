@@ -32,10 +32,21 @@ struct Config {
 	bool showWireframe = false;
 	bool useZOffset = false;
 	bool useSSAO = true;
+	bool useShadows = true;
+	
+	// SSAO parameters
+	float ssaoRadius = 0.5f;
+	const float ssaoRadiusMin = 0.1f;
+	const float ssaoRadiusMax = 2.0f;
+	const float ssaoRadiusStep = 0.1f;
+
+	float ssaoBias = 0.005f;
+	const float ssaoBiasMin = 0.001f;
+	const float ssaoBiasMax = 0.03f;
+	const float ssaoBiasStep = 0.0025f;
 };
 
 int main() {
-	// Initialize GLFW
 	if (!glfwInit()) {
 		std::cerr << "Failed to initialize GLFW" << std::endl;
 		return -1;
@@ -69,19 +80,61 @@ int main() {
 					case GLFW_KEY_O:
 						toggle("SSAO", config.useSSAO);
 						break;
+
+					case GLFW_KEY_S:
+						toggle("Shadows", config.useShadows);
+						break;
+
+					case GLFW_KEY_R:
+						config.ssaoRadius -= config.ssaoRadiusStep;
+						if (config.ssaoRadius < config.ssaoRadiusMin) {
+							config.ssaoRadius = config.ssaoRadiusMax;
+						}
+						std::cout << "SSAO Radius: " << config.ssaoRadius << std::endl;
+						break;
+					case GLFW_KEY_F:
+						config.ssaoRadius += config.ssaoRadiusStep;
+						if (config.ssaoRadius > config.ssaoRadiusMax) {
+							config.ssaoRadius = config.ssaoRadiusMin;
+						}
+						std::cout << "SSAO Radius: " << config.ssaoRadius << std::endl;
+						break;
+
+					case GLFW_KEY_T:
+						config.ssaoBias -= config.ssaoBiasStep;
+						if (config.ssaoBias < config.ssaoBiasMin) {
+							config.ssaoBias = config.ssaoBiasMax;
+						}
+						std::cout << "SSAO Bias: " << config.ssaoBias << std::endl;
+						break;
+					case GLFW_KEY_G:
+						config.ssaoBias += config.ssaoBiasStep;
+						if (config.ssaoBias > config.ssaoBiasMax) {
+							config.ssaoBias = config.ssaoBiasMin;
+						}
+						std::cout << "SSAO Bias: " << config.ssaoBias << std::endl;
+						break;
+
+					case GLFW_KEY_1:
+						config.currentSceneIdx = 0;
+						break;
+					case GLFW_KEY_2:
+						config.currentSceneIdx = 1;
+						break;
 					}
 				}
 			});
 
 		OGLMaterialFactory materialFactory;
 
-		materialFactory.loadShadersFromDir("D:\\School\\GitHub\\gl_tutorials\\build\\04_deffered\\shaders");
-		materialFactory.loadTexturesFromDir("D:\\School\\GitHub\\gl_tutorials\\build\\data\\textures");
+		materialFactory.loadShadersFromDir("./shaders/");
+		materialFactory.loadTexturesFromDir("./textures/");
 
 		OGLGeometryFactory geometryFactory;
 
-		std::array<SimpleScene, 1> scenes {
+		std::array<SimpleScene, 2> scenes {
 			createCottageScene(materialFactory, geometryFactory),
+			createMonkeyScene(materialFactory, geometryFactory)
 		};
 
 		Renderer renderer(materialFactory);
@@ -96,11 +149,15 @@ int main() {
 			{
 			renderer.clear();
 
-			renderer.shadowMapPass(scenes[config.currentSceneIdx], light);
+			if (config.useShadows) {
+				renderer.shadowMapPass(scenes[config.currentSceneIdx], light);
+			}
 			renderer.geometryPass(scenes[config.currentSceneIdx], camera, RenderOptions{"solid"});
 			
 			renderer.setSSAOEnabled(config.useSSAO);
+			renderer.setShadowsEnabled(config.useShadows);
 			if (config.useSSAO) {
+				renderer.setSSAOParameters(config.ssaoRadius, config.ssaoBias);
 				renderer.ssaoPass(camera);
 				renderer.ssaoBlurPass();
 			}

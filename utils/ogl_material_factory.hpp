@@ -33,37 +33,37 @@ template<class>
 inline constexpr bool always_false_v = false;
 
 inline int setUniform(const UniformInfo &aInfo, const MaterialParam &aParam, int aNextTexturingUnit) {
-	std::cout << "Setting uniform " << aInfo.name << " at location " << aInfo.location << std::endl;
+	//std::cout << "Setting uniform " << aInfo.name << " at location " << aInfo.location << std::endl;
 	std::visit([&aInfo, &aNextTexturingUnit](auto&& arg) {
 		try {
 			using T = std::decay_t<decltype(arg)>;
 			if constexpr (std::is_same_v<T, int>) {
-				std::cout << "Setting int uniform: " << arg << std::endl;
+				//std::cout << "Setting int uniform: " << arg << std::endl;
 				GL_CHECK(glUniform1i(aInfo.location, arg));
 			} else 	if constexpr (std::is_same_v<T, unsigned int>) {
-				std::cout << "Setting unsigned int uniform: " << arg << std::endl;
+				//std::cout << "Setting unsigned int uniform: " << arg << std::endl;
 				GL_CHECK(glUniform1ui(aInfo.location, arg));
 			} else if constexpr (std::is_same_v<T, float>) {
-				std::cout << "Setting float uniform: " << arg << std::endl;
+				//std::cout << "Setting float uniform: " << arg << std::endl;
 				GL_CHECK(glUniform1f(aInfo.location, arg));
 			} else if constexpr (std::is_same_v<T, glm::vec2>) {
-				std::cout << "Setting vec2 uniform" << std::endl;
+				//std::cout << "Setting vec2 uniform" << std::endl;
 				GL_CHECK(glUniform2fv(aInfo.location, 1, glm::value_ptr(arg)));
 			} else if constexpr (std::is_same_v<T, glm::vec3>) {
-				std::cout << "Setting vec3 uniform" << std::endl;
+				//std::cout << "Setting vec3 uniform" << std::endl;
 				GL_CHECK(glUniform3fv(aInfo.location, 1, glm::value_ptr(arg)));
 			} else if constexpr (std::is_same_v<T, glm::vec4>) {
-				std::cout << "Setting vec4 uniform" << std::endl;
+				//std::cout << "Setting vec4 uniform" << std::endl;
 				GL_CHECK(glUniform4fv(aInfo.location, 1, glm::value_ptr(arg)));
 			} else if constexpr (std::is_same_v<T, glm::mat3>) {
-				std::cout << "Setting mat3 uniform" << std::endl;
+				//std::cout << "Setting mat3 uniform" << std::endl;
 				GL_CHECK(glUniformMatrix3fv(aInfo.location, 1, GL_FALSE, glm::value_ptr(arg)));
 			} else if constexpr (std::is_same_v<T, glm::mat4>) {
-				std::cout << "Setting mat4 uniform" << std::endl;
+				//std::cout << "Setting mat4 uniform" << std::endl;
 				GL_CHECK(glUniformMatrix4fv(aInfo.location, 1, GL_FALSE, glm::value_ptr(arg)));
 			} else if constexpr (std::is_same_v<T, TextureInfo>) {
 				if (arg.textureData) {
-					std::cout << "Setting texture uniform" << std::endl;
+					//std::cout << "Setting texture uniform" << std::endl;
 					GL_CHECK(glActiveTexture(GL_TEXTURE0 + aNextTexturingUnit));
 					const OGLTexture &texture = static_cast<const OGLTexture &>(*arg.textureData);
 
@@ -74,7 +74,7 @@ inline int setUniform(const UniformInfo &aInfo, const MaterialParam &aParam, int
 					std::cout << "Warning: Texture data is null" << std::endl;
 				}
 			} else if constexpr (std::is_same_v<T, ArrayDescription>) {
-				std::cout << "Setting array uniform" << std::endl;
+				//std::cout << "Setting array uniform" << std::endl;
 				GL_CHECK(glUniform1fv(aInfo.location, arg.count, arg.ptr));
 			} else {
 				static_assert(always_false_v<T>, "non-exhaustive visitor!");

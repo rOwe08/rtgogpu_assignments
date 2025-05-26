@@ -4,14 +4,6 @@
 #include "ogl_resource.hpp"
 #include "obj_file_loading.hpp"
 
-// struct IndexedBuffer {
-// 	OpenGLResource vbo;
-// 	OpenGLResource ebo;
-// 	OpenGLResource vao;
-//
-// 	unsigned int indexCount = 0;
-// 	GLenum mode = GL_TRIANGLES;
-// };
 using VBOVector = std::vector<OpenGLResource>;
 struct IndexedBuffer {
 	OpenGLResource vao;

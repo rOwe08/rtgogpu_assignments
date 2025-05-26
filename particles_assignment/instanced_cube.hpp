@@ -54,20 +54,17 @@ generateInstancedCubeBuffers(const std::vector<VertexColor> &aPositionColorAttri
 	GL_CHECK(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexNormTex), (void*)(2*sizeof(glm::vec3))));
 	GL_CHECK(glEnableVertexAttribArray(2));
 
-	// INSTANCE ATTRIBUTES
-
 	GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, buffers.vbos[2].get()));
 	GL_CHECK(glBufferData(GL_ARRAY_BUFFER, sizeof(VertexColor) * aPositionColorAttribs.size(), aPositionColorAttribs.data(), GL_STATIC_DRAW));
 
 	GL_CHECK(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)(0)));
 	GL_CHECK(glEnableVertexAttribArray(3));
-	GL_CHECK(glVertexAttribDivisor(3, 1)); // 1 means the attribute advances once per instance
+	GL_CHECK(glVertexAttribDivisor(3, 1));
 
 	GL_CHECK(glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(VertexColor), (void*)(sizeof(glm::vec3))));
 	GL_CHECK(glEnableVertexAttribArray(4));
-	GL_CHECK(glVertexAttribDivisor(4, 1)); // 1 means the attribute advances once per instance
+	GL_CHECK(glVertexAttribDivisor(4, 1));
 
-	// Unbind VAO
 	GL_CHECK(glBindVertexArray(0));
 
 	buffers.indexCount = unsigned(indices.size());
@@ -86,13 +83,6 @@ public:
 
 	virtual std::shared_ptr<AGeometry> getGeometry(GeometryFactory &aGeometryFactory, RenderStyle aRenderStyle) {
 		return std::make_shared<OGLGeometry>(generateInstancedCubeBuffers(mInstanceAttributes));
-		// switch (aRenderStyle) {
-		// case RenderStyle::Solid:
-		// 	return aGeometryFactory.getCubeNormTex();
-		// case RenderStyle::Wireframe:
-		// 	return aGeometryFactory.getCubeOutline();
-		// }
-		// return std::shared_ptr<AGeometry>();
 	}
 
 	void prepareRenderData(MaterialFactory &aMaterialFactory, GeometryFactory &aGeometryFactory) override {

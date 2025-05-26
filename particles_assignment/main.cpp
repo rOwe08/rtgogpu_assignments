@@ -39,7 +39,6 @@ struct Config
 
 int main()
 {
-	// Initialize GLFW
 	if (!glfwInit())
 	{
 		std::cerr << "Failed to initialize GLFW" << std::endl;
@@ -103,11 +102,11 @@ int main()
 			});
 
 		OGLMaterialFactory materialFactory;
-		materialFactory.loadShadersFromDir("D:\\School\\GitHub\\gl_tutorials\\build\\05_shaders\\shaders");
-		materialFactory.loadTexturesFromDir("D:\\School\\GitHub\\gl_tutorials\\build\\data\\textures");
+
+		materialFactory.loadShadersFromDir("./shaders/");
+		materialFactory.loadTexturesFromDir("./textures/");
 
 		OGLGeometryFactory geometryFactory;
-
 
 		std::array<SimpleScene, 4> scenes{
 			createCubeScene(materialFactory, geometryFactory),

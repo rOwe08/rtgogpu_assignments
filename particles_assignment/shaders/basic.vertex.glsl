@@ -3,7 +3,7 @@
 uniform mat4 u_modelMat;
 uniform mat4 u_viewMat;
 uniform mat4 u_projMat;
-uniform mat4 u_normalMat;
+uniform mat3 u_normalMat;
 
 in vec3 in_vert;
 in vec3 in_normal;
@@ -16,7 +16,7 @@ out vec2 f_texCoord;
 void main(void)
 {
 	gl_Position = u_projMat * u_viewMat * u_modelMat * vec4(in_vert, 1);
-	f_normal = vec3(u_normalMat * vec4(in_normal, 0));
+	f_normal = normalize(u_normalMat * in_normal);
 	f_position = vec3(u_modelMat * vec4(in_vert, 1.0));
 	f_texCoord = in_texCoord;
 }

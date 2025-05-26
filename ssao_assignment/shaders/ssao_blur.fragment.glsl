@@ -17,9 +17,7 @@ void main() {
         }
     }
 
-    // Normalize
-    result /= 9.0;  // 3x3 kernel = 9 samples
+    result /= 9.0;
 
-    // Output to all channels to ensure grayscale
     FragColor = vec4(result, result, result, 1.0);
 }  

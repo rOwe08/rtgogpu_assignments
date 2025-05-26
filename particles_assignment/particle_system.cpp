@@ -34,8 +34,7 @@ void ParticleSystem::update(float dt, glm::vec3 emitterPos)
         if (p.mLife > 0.0f)
         {
             float lifeNorm = p.mLife / p.mInitialLife;
-            // Color smoothly transitions from white -> yellow -> orange -> red
-            // We'll use a simple lerp between these colors based on lifeNorm
+            // white -> yellow -> orange -> red
             glm::vec3 white = glm::vec3(1.0f, 1.0f, 1.0f);
             glm::vec3 yellow = glm::vec3(1.0f, 1.0f, 0.0f);
             glm::vec3 orange = glm::vec3(1.0f, 0.5f, 0.0f);
@@ -52,7 +51,7 @@ void ParticleSystem::update(float dt, glm::vec3 emitterPos)
                 color = glm::mix(red, orange, t); // orange to red
             }
             p.mColor = glm::vec4(color, lifeNorm); // alpha fades out
-            // Apply physics
+
             p.mPosition += p.mVelocity * dt;
             p.mVelocity += glm::vec3(0.0f, 0.2f, 0.0f) * dt; // Reduced gravity
             p.mLife -= dt * 1.5f;
@@ -62,14 +61,11 @@ void ParticleSystem::update(float dt, glm::vec3 emitterPos)
         }
         else
         {
-            // Respawn dead particles
             respawnParticle(p, emitterPos);
         }
     }
     
-    // Update GPU buffers
     if (activeParticles > 0) {
-        // Regenerate geometry with updated particles
         for (auto& mode : mRenderInfos) {
             mode.second.geometry = std::make_shared<OGLGeometry>(generateParticleBuffers(mParticles));
         }
@@ -93,11 +89,9 @@ void ParticleSystem::prepareRenderData(MaterialFactory& matFactory, GeometryFact
 
 void ParticleSystem::updateCameraVectors(const glm::mat4& viewMatrix)
 {
-    // Extract camera right and up vectors from view matrix
     glm::vec3 cameraRight = glm::normalize(glm::vec3(viewMatrix[0][0], viewMatrix[1][0], viewMatrix[2][0]));
     glm::vec3 cameraUp = glm::normalize(glm::vec3(viewMatrix[0][1], viewMatrix[1][1], viewMatrix[2][1]));
 
-    // Update shader parameters
     for (auto& mode : mRenderInfos)
     {
         if (mode.second.shaderProgram)
@@ -133,27 +127,24 @@ unsigned int ParticleSystem::firstUnusedParticle()
 void ParticleSystem::respawnParticle(Particle& p, glm::vec3 emitterPos)
 {
     // Generate random angle and radius for circular distribution
-    float angle = m_dist(m_randomGen) * 2.0f * 3.14159f;  // random angle from 0 to 2π
-    float radius = m_dist(m_randomGen) * 0.5f;  // random radius from 0 to 0.5
+    float angle = m_dist(m_randomGen) * 2.0f * 3.14159f; 
+    float radius = m_dist(m_randomGen) * 0.5f;  
     
-    // Convert polar coordinates to Cartesian for x and y
     float x = radius * cos(angle);
     float y = radius * sin(angle);
     
-    // Generate random height in cylinder
-    float z = m_dist(m_randomGen) * 0.5f;  // cylinder height from -0.5 to 0.5
+    float z = m_dist(m_randomGen) * 0.5f; 
 
     p.mPosition = emitterPos + glm::vec3(x, y, z);
 
-    // Fire: strong upward, more random horizontal, less gravity
     p.mVelocity = glm::vec3(
-        float((rand() % 200) - 100) * 0.001f,  // More random x
-        1.8f + m_dist(m_randomGen) * 0.7f,     // Strong upward
-        float((rand() % 200) - 100) * 0.002f   // Increased Z movement
+        float((rand() % 200) - 100) * 0.001f,  
+        1.8f + m_dist(m_randomGen) * 0.7f,    
+        float((rand() % 200) - 100) * 0.002f  
     );
 
     p.mInitialLife = p.mLife = 1.0f + m_dist(m_randomGen) * 0.7f;
-    p.mScale = 0.05f + m_dist(m_randomGen) * 0.02f; // Vary particle size for more depth
+    p.mScale = 0.05f + m_dist(m_randomGen) * 0.02f;
 }
 
 IndexedBuffer ParticleSystem::generateParticleBuffers(const std::vector<Particle>& particles)
@@ -161,8 +152,7 @@ IndexedBuffer ParticleSystem::generateParticleBuffers(const std::vector<Particle
     IndexedBuffer buffers{ createVertexArray() };
     buffers.vbos.reserve(3);
 
-    // Create quad vertices for particles
-    float particleSize = 0.035f;
+    float particleSize = 0.15f;
     std::vector<VertexNormTex> vertices = {
         VertexNormTex(glm::vec3( particleSize,  particleSize, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(1.0f, 1.0f)),
         VertexNormTex(glm::vec3(-particleSize,  particleSize, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f), glm::vec2(0.0f, 1.0f)),
@@ -174,39 +164,31 @@ IndexedBuffer ParticleSystem::generateParticleBuffers(const std::vector<Particle
 
     GL_CHECK(glBindVertexArray(buffers.vao.get()));
 
-    // Vertex buffer
     buffers.vbos.push_back(createBuffer());
     GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, buffers.vbos[0].get()));
     GL_CHECK(glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(VertexNormTex), vertices.data(), GL_STATIC_DRAW));
 
-    // Element buffer
     buffers.vbos.push_back(createBuffer());
     GL_CHECK(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers.vbos[1].get()));
     GL_CHECK(glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW));
 
-    // Position attribute (location 0)
     GL_CHECK(glEnableVertexAttribArray(0));
     GL_CHECK(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(VertexNormTex), (void*)0));
 
-    // Normal attribute (location 1)
     GL_CHECK(glEnableVertexAttribArray(1));
     GL_CHECK(glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(VertexNormTex), (void*)(sizeof(glm::vec3))));
 
-    // Texture coordinate attribute (location 2)
     GL_CHECK(glEnableVertexAttribArray(2));
     GL_CHECK(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(VertexNormTex), (void*)(2*sizeof(glm::vec3))));
 
-    // Instance buffer
     buffers.vbos.push_back(createBuffer());
     GL_CHECK(glBindBuffer(GL_ARRAY_BUFFER, buffers.vbos[2].get()));
     GL_CHECK(glBufferData(GL_ARRAY_BUFFER, particles.size() * sizeof(Particle), particles.data(), GL_DYNAMIC_DRAW));
 
-    // Position instance attribute (location 3)
     GL_CHECK(glEnableVertexAttribArray(3));
     GL_CHECK(glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, mPosition)));
     GL_CHECK(glVertexAttribDivisor(3, 1));
 
-    // Color instance attribute (location 4)
     GL_CHECK(glEnableVertexAttribArray(4));
     GL_CHECK(glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Particle), (void*)offsetof(Particle, mColor)));
     GL_CHECK(glVertexAttribDivisor(4, 1));
