@@ -1,4 +1,4 @@
-# gl_tutorials
+# rtgogpu_assignments
 Solutions for semestral project assignments: Screen Space Ambient Occlussion and Particle system.
 
 ## Dependencies
